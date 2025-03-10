@@ -1,0 +1,24 @@
+---
+- name: Setup SSH keys
+  hosts: test_server
+  gather_facts: false
+  tasks:
+    - name: Ensure .ssh directory exists
+      file:
+        path: ~/.ssh
+        state: directory
+        mode: '0700'
+
+    - name: Copy public SSH key
+      authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/rsa_id.pub') }}"
+
+    - name: Verify SSH key installation
+      shell: "ls -l ~/.ssh/authorized_keys"
+      register: result
+
+    - name: Show result
+      debug:
+        var: result.stdout

@@ -1,0 +1,31 @@
+---
+- name: Test SSH connectivity
+  hosts: test_server
+  gather_facts: false
+  tasks:
+    - name: Test SSH connection
+      ping:
+      register: ping_result
+
+    - name: Display connection result
+      debug:
+        var: ping_result
+
+    - name: Get remote hostname
+      command: hostname
+      register: hostname_result
+
+    - name: Display hostname
+      debug:
+        var: hostname_result.stdout
+
+    - name: test elevation
+      become: true
+      become_method: 'su'
+      become_user: 'arian'
+      command: 'whoami'
+      register: elevation_result
+
+    - name: show elevation result
+      debug:
+        var: elevation_result.stdout

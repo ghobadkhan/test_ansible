@@ -1,0 +1,9 @@
+all:
+  hosts:
+    test_server:
+      ansible_host: 0.0.0.0
+      ansible_port: 9090
+      ansible_python_interpreter: /usr/bin/python3.12
+      ansible_user: root
+      ansible_ssh_private_key_file: rsa_id
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
