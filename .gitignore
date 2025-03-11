@@ -1,3 +1,5 @@
 __pycache__/
 .vev/
 rsa_id
+.ansible/
+.vscode/
